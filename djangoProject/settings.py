@@ -25,7 +25,12 @@ SECRET_KEY = 'django-insecure-iz+6-kq0a6i9h!nbsw8wtac5j-q(3&jv9m9u82*vaj6%)6y^#&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'cosmicview-back.onrender.com',  # Agrega tu dominio de Render aquí
+]
+
 
 
 # Application definition
