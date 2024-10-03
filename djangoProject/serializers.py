@@ -7,9 +7,9 @@ class PlanetSerializer(serializers.ModelSerializer):
         fields = [
             'name',
             'radius_km',
-            'semi_major_axis_au',
+            'semi_major_axis',
             'eccentricity',
-            'inclination_deg',
+            'inclination',
             'rotation_period_hours',
             'scaled_radius',
             'scaled_distance',
@@ -24,9 +24,9 @@ class AsteroidSerializer(serializers.ModelSerializer):
         model = Asteroid
         fields = [
             'name',
-            'semi_major_axis_au',
+            'semi_major_axis',
             'eccentricity',
-            'inclination_deg',
+            'inclination',
             'perihelion_distance',
             'aphelion_distance',
             'mean_anomaly_deg',
@@ -46,9 +46,9 @@ class CometSerializer(serializers.ModelSerializer):
         fields = [
             'name',
             'perihelion_distance',
-            'semi_major_axis_au',
+            'semi_major_axis',
             'eccentricity',
-            'inclination_deg',
+            'inclination',
             'period_years',
             'time_of_perihelion_passage',
             'scaled_distance',
