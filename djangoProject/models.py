@@ -3,6 +3,7 @@ from django.db import models
 class Planet(models.Model):
     name = models.CharField(max_length=100)
     radius_km = models.FloatField()
+    orbital_period = models.FloatField()
     semi_major_axis = models.FloatField()
     eccentricity = models.FloatField()
     inclination = models.FloatField()
