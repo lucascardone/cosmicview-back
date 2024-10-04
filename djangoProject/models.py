@@ -6,12 +6,9 @@ class Planet(models.Model):
     semi_major_axis = models.FloatField()
     eccentricity = models.FloatField()
     inclination = models.FloatField()
-    rotation_period_hours = models.FloatField()
-    scaled_radius = models.FloatField()
-    scaled_distance = models.FloatField()
-    position_x = models.FloatField()
-    position_y = models.FloatField()
-    position_z = models.FloatField()
+    mean_longitude = models.FloatField()
+    longitude_perihelion = models.FloatField()
+    longitude_ascending_node = models.FloatField()
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
