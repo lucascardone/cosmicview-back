@@ -31,8 +31,6 @@ ALLOWED_HOSTS = [
     'cosmicview-back.onrender.com',  # Agrega tu dominio de Render aquí
 ]
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,9 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'djangoProject',
+    'corsheaders',  # Añadido django-cors-headers
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # Añadido al inicio
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -61,8 +61,7 @@ ROOT_URLCONF = 'djangoProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,3 +128,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# CORS configuration
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Permitir peticiones desde localhost:3000
+    "https://cosmicview-back.onrender.com",  # Permitir el dominio de producción
+]
+
+# Opción para permitir todas las peticiones CORS (no recomendado para producción)
+# CORS_ALLOW_ALL_ORIGINS = True
