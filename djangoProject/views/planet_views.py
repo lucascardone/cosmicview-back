@@ -1,15 +1,14 @@
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Planet
-from .serializers import PlanetSerializer
-from djangoProject.utils.planet.orbital_propagator import calculate_orbit, kepler_position, SCALE_FACTOR_SIZE
+from djangoProject.models import Planet
+from djangoProject.serializers import PlanetSerializer
+from djangoProject.utils.orbital_propagator import calculate_orbit, calculate_planet_position, SCALE_FACTOR_SIZE
 from datetime import datetime
 
 class PlanetViewSet(viewsets.ModelViewSet):
     queryset = Planet.objects.all()
     serializer_class = PlanetSerializer
-
 
 @api_view(['GET'])
 def get_position(request):
@@ -36,8 +35,8 @@ def get_position(request):
 
     # Calcular los puntos orbitales de cada planeta
     for planet in planets:
-        position_points = kepler_position(planet, date)  # Pasar la fecha y hora a kepler_position
-        orbit_points = calculate_orbit(planet)
+        position_points = calculate_planet_position(planet.name, date)  # Pasar la fecha y hora a kepler_position
+        orbit_points = calculate_orbit(planet.name, date, planet.orbital_period)
         data['planets'].append({
             'name': planet.name,
             'radius': planet.radius_km / SCALE_FACTOR_SIZE,
