@@ -1,18 +1,21 @@
 from django.http import JsonResponse
-from ..models import Planet, Asteroid, Comet
+from djangoProject.models import Planet, Asteroid, Comet
 from math import cos, sin, radians
 import numpy as np
 from datetime import datetime
+
+SCALE_FACTOR_SIZE = 100
+SCALE_FACTOR_DISTANCE = 1e-6
 
 def kepler_position(body, date=None):
     # Parámetros orbitales
     a = body.semi_major_axis * 149597870.7 # Eje semi-mayor (distancia media al Sol, representa el tamaño de la órbita)
     e = body.eccentricity # Excentricidad orbital (cuán elíptica es la órbita)
     i = np.radians(body.inclination) # Inclinación orbital convertida a radianes (La inclinación de la órbita respecto al plano de referencia)
-    Ω = np.radians(body.longitude_ascending_node) # Longitud del nodo ascendente (convertida a radianes)
-    ω = np.radians(body.longitude_perihelion) # Longitud del perihelio (convertida a radianes)
-    M_0 = np.radians(body.mean_longitude) # Longitud media (convertida a radianes)
-    T = body.orbital_period  # Periodo orbital en días
+    Ω = np.radians(body.longitude_ascending_node) # Longitud del nodo ascendente convertida a radianes (ángulo en el plano orbital donde la órbita cruza el plano de referencia)
+    ω = np.radians(body.longitude_perihelion) # Longitud del perihelio convertida a radianes (orientación de la órbita respecto al punto más cercano al Sol)
+    M_0 = np.radians(body.mean_longitude) # Longitud media convertida a radianes (posición media en la órbita)
+    T = body.orbital_period  # Periodo orbital en días (cuánto tarda en completar una órbita)
 
     # Calcular el tiempo actual o un tiempo específico
     if date is None:
@@ -52,7 +55,7 @@ def kepler_position(body, date=None):
     y = (np.sin(Ω) * np.cos(ω + ν) + np.cos(Ω) * np.sin(ω + ν) * np.cos(i)) * r
     z = (np.sin(ω + ν) * np.sin(i)) * r
 
-    return x, y, z
+    return x*SCALE_FACTOR_DISTANCE, y*SCALE_FACTOR_DISTANCE, z*SCALE_FACTOR_DISTANCE
 
 
 def calculate_orbit(body, num_points=64):
@@ -81,6 +84,6 @@ def calculate_orbit(body, num_points=64):
         z = (sin(ω + ν) * sin(i)) * r
 
         # Almacenar el punto en 3D
-        orbit_points.append({'x': x, 'y': y, 'z': z})
+        orbit_points.append({'x': x*SCALE_FACTOR_DISTANCE, 'y': y*SCALE_FACTOR_DISTANCE, 'z': z*SCALE_FACTOR_DISTANCE})
 
     return orbit_points
