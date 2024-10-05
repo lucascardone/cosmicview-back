@@ -4,8 +4,8 @@ from math import cos, sin, radians
 import numpy as np
 from datetime import datetime
 
-SCALE_FACTOR_SIZE = 100
-SCALE_FACTOR_DISTANCE = 1e-6
+SCALE_FACTOR_SIZE = 1000
+SCALE_FACTOR_DISTANCE = 1000000
 
 def kepler_position(body, date=None):
     # Parámetros orbitales
@@ -55,7 +55,7 @@ def kepler_position(body, date=None):
     y = (np.sin(Ω) * np.cos(ω + ν) + np.cos(Ω) * np.sin(ω + ν) * np.cos(i)) * r
     z = (np.sin(ω + ν) * np.sin(i)) * r
 
-    return x*SCALE_FACTOR_DISTANCE, y*SCALE_FACTOR_DISTANCE, z*SCALE_FACTOR_DISTANCE
+    return x/SCALE_FACTOR_DISTANCE, y/SCALE_FACTOR_DISTANCE, z/SCALE_FACTOR_DISTANCE
 
 
 def calculate_orbit(body, num_points=64):
@@ -84,6 +84,6 @@ def calculate_orbit(body, num_points=64):
         z = (sin(ω + ν) * sin(i)) * r
 
         # Almacenar el punto en 3D
-        orbit_points.append({'x': x*SCALE_FACTOR_DISTANCE, 'y': y*SCALE_FACTOR_DISTANCE, 'z': z*SCALE_FACTOR_DISTANCE})
+        orbit_points.append({'x': x/SCALE_FACTOR_DISTANCE, 'y': y/SCALE_FACTOR_DISTANCE, 'z': z/SCALE_FACTOR_DISTANCE})
 
     return orbit_points
