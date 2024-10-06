@@ -130,7 +130,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     # Permitir peticiones desde localhost:3000
     "https://cosmicview-back.onrender.com",  # Permitir el dominio de producción
-    "https://cosmic-touch.netlify.app/"
+    "https://cosmic-touch.netlify.app",
 ]
 
 # Opción para permitir todas las peticiones CORS (no recomendado para producción)
