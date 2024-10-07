@@ -3,12 +3,11 @@ from djangoProject.models import Planet, Asteroid, Comet
 from math import cos, sin, radians
 import numpy as np
 from datetime import datetime, timedelta
+from astropy.time import Time
+from astropy.coordinates import solar_system_ephemeris, get_body_barycentric_posvel
 
 SCALE_FACTOR_SIZE = 1000
 SCALE_FACTOR_DISTANCE = 100
-
-from astropy.time import Time
-from astropy.coordinates import solar_system_ephemeris, get_body_barycentric_posvel
 
 def calculate_planet_position(planet_name, date):
     # Convertimos la fecha a un objeto de tiempo
@@ -31,8 +30,8 @@ def calculate_orbit(planet_name, start_date, total_days):
     orbit_points = []  # Lista para almacenar los puntos de la órbita
 
     # Calcular la posición del planeta en 64 puntos distribuidos a lo largo de total_days
-    interval = total_days / 64  # Intervalo de días entre cada punto
-    for i in range(64):
+    interval = total_days / 240 # Intervalo de días entre cada punto
+    for i in range(240):
         # Calcular la fecha para el punto actual
         current_time = start_time + timedelta(days=i * interval)
 
